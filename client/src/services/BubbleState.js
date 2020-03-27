@@ -39,6 +39,10 @@ class BubbleState {
     await this.bubbleService.addColor(color);
     this.setAdded(false);
   }
+
+  logout() {
+    localStorage.removeItem('token');
+  }
 }
 
 export default new BubbleState(BubbleService);

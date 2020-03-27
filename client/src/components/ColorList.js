@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import BubbleState from '../services/BubbleState';
 
@@ -8,7 +9,7 @@ const initialColor = {
 };
 
 const ColorList = ({ colors, editing, setEditing, setDeleting, setAdded }) => {
-  // console.log(colors);
+  const history = useHistory();
   const [colorToEdit, setColorToEdit] = useState(initialColor);
   const [colorToAdd, setColorToAdd] = useState(initialColor);
 
@@ -33,6 +34,11 @@ const ColorList = ({ colors, editing, setEditing, setDeleting, setAdded }) => {
     setAdded(true);
     BubbleState.addColor(colorToAdd);
     setColorToEdit(initialColor);
+  }
+
+  const handleLogout = () => {
+    BubbleState.logout();
+    history.push('/');
   }
 
   return (
@@ -115,6 +121,9 @@ const ColorList = ({ colors, editing, setEditing, setDeleting, setAdded }) => {
           <button type="submit">add</button>
         </div>
       </form>
+      <div className="button-row">
+        <button onClick={handleLogout}>logout</button>
+      </div>
       <div className="spacer" />
     </div>
   );
