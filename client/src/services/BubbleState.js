@@ -2,6 +2,7 @@ import BubbleService from './BubbleService';
 
 class BubbleState {
   setColorList;
+  setEditing;
   bubbleService;
 
   constructor(bubbleService) {
@@ -20,6 +21,11 @@ class BubbleState {
   async getColors() {
     const response = await this.bubbleService.getColors();
     this.setColorList(response.data);
+  }
+
+  async editColor(color) {
+    const response = await this.bubbleService.editColor(color);
+    this.setEditing(false);
   }
 }
 

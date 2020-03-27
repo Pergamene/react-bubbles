@@ -1,22 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 import BubbleState from '../services/BubbleState';
 
-import Bubbles from "./Bubbles";
-import ColorList from "./ColorList";
+import Bubbles from './Bubbles';
+import ColorList from './ColorList';
 
 const BubblePage = () => {
   const [colorList, setColorList] = useState([]);
-  // fetch your colors data from the server when the component mounts
-  // set that data to the colorList state property
+  const [editing, setEditing] = useState(false);
+
   useEffect(() => {
-    BubbleState.setColorList = setColorList;
-    BubbleState.getColors();
-  }, []);
+    if (!editing) {
+      BubbleState.colorList = colorList;
+      BubbleState.setColorList = setColorList;
+      BubbleState.setEditing = setEditing;
+      BubbleState.getColors();
+    }
+  }, [editing]);
 
   return (
     <>
-      <ColorList colors={colorList} updateColors={setColorList} />
+      <ColorList colors={colorList} editing={editing} setEditing={setEditing} />
       <Bubbles colors={colorList} />
     </>
   );
