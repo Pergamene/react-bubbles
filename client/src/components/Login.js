@@ -34,7 +34,7 @@ const Login = () => {
   return (
     <form onSubmit={handleSubmit}>
       <input name="username" value={credentials.login} onChange={handleChange}/>
-      <input name="password" value={credentials.password} onChange={handleChange}/>
+      <input name="password" type="password" value={credentials.password} onChange={handleChange}/>
       <button type="submit">Login</button>
     </form>
   );
