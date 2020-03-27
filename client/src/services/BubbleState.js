@@ -4,6 +4,7 @@ class BubbleState {
   setColorList;
   setEditing;
   setDeleting;
+  setAdded;
   bubbleService;
 
   constructor(bubbleService) {
@@ -32,6 +33,11 @@ class BubbleState {
   async deleteColor(id) {
     await this.bubbleService.deleteColor(id);
     this.setDeleting(false);
+  }
+
+  async addColor(color) {
+    await this.bubbleService.addColor(color);
+    this.setAdded(false);
   }
 }
 

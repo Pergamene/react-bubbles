@@ -9,19 +9,21 @@ const BubblePage = () => {
   const [colorList, setColorList] = useState([]);
   const [editing, setEditing] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [added, setAdded] = useState(false);
 
   useEffect(() => {
     BubbleState.setColorList = setColorList;
     BubbleState.setEditing = setEditing;
     BubbleState.setDeleting = setDeleting;
-    if (!editing && !deleting) {
+    BubbleState.setAdded = setAdded;
+    if (!editing && !deleting && !added) {
       BubbleState.getColors();
     }
-  }, [editing, deleting]);
+  }, [editing, deleting, added]);
 
   return (
     <>
-      <ColorList colors={colorList} editing={editing} setEditing={setEditing} setDeleting={setDeleting} />
+      <ColorList colors={colorList} editing={editing} setEditing={setEditing} setDeleting={setDeleting} setAdded={setAdded} />
       <Bubbles colors={colorList} />
     </>
   );

@@ -7,9 +7,10 @@ const initialColor = {
   code: { hex: '' }
 };
 
-const ColorList = ({ colors, editing, setEditing, setDeleting }) => {
+const ColorList = ({ colors, editing, setEditing, setDeleting, setAdded }) => {
   // console.log(colors);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
+  const [colorToAdd, setColorToAdd] = useState(initialColor);
 
   const editColor = color => {
     setEditing(true);
@@ -26,6 +27,13 @@ const ColorList = ({ colors, editing, setEditing, setDeleting }) => {
     setDeleting(true);
     BubbleState.deleteColor(color.id);
   };
+
+  const saveAddColor = event => {
+    event.preventDefault();
+    setAdded(true);
+    BubbleState.addColor(colorToAdd);
+    setColorToEdit(initialColor);
+  }
 
   return (
     <div className="colors-wrap">
@@ -80,8 +88,34 @@ const ColorList = ({ colors, editing, setEditing, setDeleting }) => {
           </div>
         </form>
       )}
+      <form onSubmit={saveAddColor}>
+        <legend>add color</legend>
+        <label>
+          color name:
+          <input
+            onChange={e =>
+              setColorToAdd({ ...colorToAdd, color: e.target.value })
+            }
+            value={colorToAdd.color}
+          />
+        </label>
+        <label>
+          hex code:
+          <input
+            onChange={e =>
+              setColorToAdd({
+                ...colorToAdd,
+                code: { hex: e.target.value }
+              })
+            }
+            value={colorToAdd.code.hex}
+          />
+        </label>
+        <div className="button-row">
+          <button type="submit">add</button>
+        </div>
+      </form>
       <div className="spacer" />
-      {/* stretch - build another form here to add a color */}
     </div>
   );
 };
