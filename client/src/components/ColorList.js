@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import BubbleState from '../services/BubbleState';
 
@@ -7,7 +7,7 @@ const initialColor = {
   code: { hex: '' }
 };
 
-const ColorList = ({ colors, editing, setEditing }) => {
+const ColorList = ({ colors, editing, setEditing, setDeleting }) => {
   // console.log(colors);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
 
@@ -15,7 +15,6 @@ const ColorList = ({ colors, editing, setEditing }) => {
     setEditing(true);
     setColorToEdit(color);
   };
-  // console.log(colorToEdit);
 
   const saveEdit = event => {
     event.preventDefault();
@@ -24,7 +23,8 @@ const ColorList = ({ colors, editing, setEditing }) => {
   };
 
   const deleteColor = color => {
-    // make a delete request to delete this color
+    setDeleting(true);
+    BubbleState.deleteColor(color.id);
   };
 
   return (

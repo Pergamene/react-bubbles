@@ -16,6 +16,11 @@ class BubbleService {
     return response;
   }
 
+  async deleteColor(id) {
+    const response = await this._createBaseRequest().delete(`api/colors/${id}`);
+    return response;
+  }
+
   _createBaseRequest() {
     const token = JSON.parse(localStorage.getItem('token'));
     return axios.create({

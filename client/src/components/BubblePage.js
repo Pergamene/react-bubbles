@@ -8,19 +8,20 @@ import ColorList from './ColorList';
 const BubblePage = () => {
   const [colorList, setColorList] = useState([]);
   const [editing, setEditing] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    if (!editing) {
-      BubbleState.colorList = colorList;
-      BubbleState.setColorList = setColorList;
-      BubbleState.setEditing = setEditing;
+    BubbleState.setColorList = setColorList;
+    BubbleState.setEditing = setEditing;
+    BubbleState.setDeleting = setDeleting;
+    if (!editing && !deleting) {
       BubbleState.getColors();
     }
-  }, [editing]);
+  }, [editing, deleting]);
 
   return (
     <>
-      <ColorList colors={colorList} editing={editing} setEditing={setEditing} />
+      <ColorList colors={colorList} editing={editing} setEditing={setEditing} setDeleting={setDeleting} />
       <Bubbles colors={colorList} />
     </>
   );
