@@ -33,7 +33,7 @@ const ColorList = ({ colors, editing, setEditing, setDeleting, setAdded }) => {
     event.preventDefault();
     setAdded(true);
     BubbleState.addColor(colorToAdd);
-    setColorToEdit(initialColor);
+    setColorToAdd(initialColor);
   }
 
   const handleLogout = () => {
