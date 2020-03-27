@@ -6,6 +6,11 @@ class BubbleService {
     return response;
   }
 
+  async getColors() {
+    const response = await this._createBaseRequest().get('api/colors');
+    return response;
+  }
+
   _createBaseRequest() {
     const token = JSON.parse(localStorage.getItem('token'));
     return axios.create({
