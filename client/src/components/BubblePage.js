@@ -1,17 +1,29 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
 
-import Bubbles from "./Bubbles";
-import ColorList from "./ColorList";
+import BubbleState from '../services/BubbleState';
+
+import Bubbles from './Bubbles';
+import ColorList from './ColorList';
 
 const BubblePage = () => {
   const [colorList, setColorList] = useState([]);
-  // fetch your colors data from the server when the component mounts
-  // set that data to the colorList state property
+  const [editing, setEditing] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [added, setAdded] = useState(false);
+
+  useEffect(() => {
+    BubbleState.setColorList = setColorList;
+    BubbleState.setEditing = setEditing;
+    BubbleState.setDeleting = setDeleting;
+    BubbleState.setAdded = setAdded;
+    if (!editing && !deleting && !added) {
+      BubbleState.getColors();
+    }
+  }, [editing, deleting, added]);
 
   return (
     <>
-      <ColorList colors={colorList} updateColors={setColorList} />
+      <ColorList colors={colorList} editing={editing} setEditing={setEditing} setDeleting={setDeleting} setAdded={setAdded} />
       <Bubbles colors={colorList} />
     </>
   );

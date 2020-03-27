@@ -1,13 +1,42 @@
-import React from "react";
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import BubbleState from '../services/BubbleState';
+
+const emptyCredentials = {
+  username: '',
+  password: '',
+};
 
 const Login = () => {
-  // make a post request to retrieve a token from the api
-  // when you have handled the token, navigate to the BubblePage route
+  const history = useHistory();
+  const [credentials, setCredentials] = useState(emptyCredentials);
+
+  const handleChange = event => {
+    setCredentials({
+      ...credentials,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    handleLogin();
+  };
+
+  const handleLogin = async () => {
+    const isLoggedIn = await BubbleState.bubbleLogin(credentials);
+    if (isLoggedIn) {
+      history.push('/bubbles');
+    }
+  };
+
   return (
-    <>
-      <h1>Welcome to the Bubble App!</h1>
-      <p>Build a login page here</p>
-    </>
+    <form onSubmit={handleSubmit}>
+      <input name="username" value={credentials.login} onChange={handleChange}/>
+      <input name="password" type="password" value={credentials.password} onChange={handleChange}/>
+      <button type="submit">Login</button>
+    </form>
   );
 };
 
